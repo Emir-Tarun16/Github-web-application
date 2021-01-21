@@ -4,11 +4,7 @@ import GitCard from './GitCard'
 import GitInfo from './GitInfo'
 
 export default class GitProfile extends Component {
-    constructor(props){
-        super(props);
-
-
-    }
+  
     render() {
         return (
             <div>

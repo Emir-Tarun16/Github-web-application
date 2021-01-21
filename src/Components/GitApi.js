@@ -1,6 +1,18 @@
 import Axios from 'axios';
 import React, { Fragment } from 'react';
 import GitProfile from './GitProfile';
+import { Form, Input, Button } from 'antd';
+import { Result } from 'antd';
+import { UserOutlined, GithubOutlined } from '@ant-design/icons';
+import 'antd/dist/antd.css';
+import { Layout, Menu } from 'antd';
+
+const { Header, Content, Footer } = Layout;
+
+
+const onFinish = (values) => {
+    console.log('Received values of form: ', values);
+};
 
 
 class GitApi extends React.Component {
@@ -10,7 +22,8 @@ class GitApi extends React.Component {
         super();
         this.state = {
             username: '',  //username to be searched
-            profile: null  //git user profile information
+            profile: null,  //git user profile information
+            showNoData: false
 
         }
 
@@ -35,75 +48,135 @@ class GitApi extends React.Component {
             (response) => {
                 console.log(response);
                 this.setState({
-                    profile: response.data
+                    profile: response.data,
+                    showNoData: false
                 });
             }).catch((err) => {
                 console.log("Error While Fetching ")
                 console.error(err);
+                this.setState({ showNoData: true });
+
             })
 
     };
 
 
+
+
     render() {
         return (
             <Fragment>
-                {/* <pre>{JSON.stringify(this.state)}</pre>  */}
-                 <nav class="navbar navbar-light bg-primary">
-                     <div class="container-fluid">
-                        <a class="navbar-brand">
-                            <strong>GitHub Profile Web Application</strong>
-                        </a>
+                <Layout className="layout">
+                    <Header>
+                        <div className="logo" />
+                        <Menu theme="dark" style={{ fontFamily: 'Libre Baskerville, serif' }} mode="horizontal" defaultSelectedKeys={['2']}>
+                            <Menu.Item key="1">
+                                <GithubOutlined />
+            GitHub Profile Finder App...</Menu.Item>
 
-                    </div>
-                </nav>
-               
-                <div className="container mt-4">
-                    <div className="row">
-                        <div className="col">
-                            <div className="card">
-                                <div className="card-header bg-primary text-white">
-                                    <h3 className="text-center">** Search Your Git Profile **</h3>
+                        </Menu>
+                    </Header>
+                    <Content style={{ padding: '0 50px', marginTop: '30px' }}>
+
+                        <div className="site-layout-content">
+
+                            {/* <pre>{JSON.stringify(this.state)}</pre>  */}
+                            <div className="bgGray">
+
+
+                                <div className="container mt-4">
+                                    <div className="row">
+                                        <div className="col">
+                                            <div className="card">
+
+                                                <div className="card-body">
+
+                                                    <Form
+                                                        onSubmit={this.gitSearch_user}
+                                                        className="login-form"
+                                                        onFinish={onFinish}
+
+
+                                                    >
+
+                                                        <Form.Item
+
+                                                            name="username"
+                                                            rules={[
+                                                                {
+                                                                    required: true,
+                                                                    message: 'Please input your Username!',
+                                                                },
+                                                            ]}
+                                                        >
+                                                            <Input prefix={<UserOutlined className="site-form-item-icon" />}
+                                                                placeholder="enter your username"
+                                                                value={this.state.username}
+                                                                onChange={this.updateInput}
+                                                            />
+                                                        </Form.Item>
+
+
+                                                        <Form.Item>
+                                                            <Button type="primary"
+                                                                onClick={this.gitSearch_user}
+                                                                htmltype="submit"
+                                                                className="login-form-button">
+                                                                Search
+                                                            </Button>
+
+                                                        </Form.Item>
+                                                    </Form>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div className="card-body">
-                                    <form className="form-inline" onSubmit={this.gitSearch_user}>
-                                        <div className="form-group">
-                                            <input style={{ width: '250px' }} value={this.state.username}
-                                                onChange={this.updateInput}
-                                                type="text"
-                                                className="form-control"
-                                                placeholder="Enter Username"
-                                            />
-                                            <br />
-                                            <input
-                                                style={{ width: '100px' }}
-                                                type="submit"
-                                                value="Search"
-                                                className="btn btn-primary btn-sm ml-3"
-                                            />
+                                {
+                                    this.state.showNoData ?
+                                        <div className="container-fluid">
+                                            <div className="row">
+                                                <Result
+                                                    status="500"
+                                                    title="Sorry, User Not Found"
+                                                    
+                                                   
+                                                />
+                                               
+                                            </div>
 
                                         </div>
-                                    </form>
-                                </div>
+
+                                        : ''
+
+                                }
+
+
+                                {
+                                    !this.state.showNoData ?
+                                        <div className="container">
+                                            <div className="row">
+                                                <div className="col">
+                                                    {
+                                                        this.state.profile ?
+                                                            <GitProfile profile={this.state.profile} />
+
+
+                                                            : null
+
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div> : " "
+                                }
+
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </Content>
+                    <Footer style={{ textAlign: 'center' }}><strong> ©2021 Created by naman@dev.com</strong></Footer>
+                </Layout>,
 
-                <div className="container">
-                    <div className="row">
-                        <div className="col">
-                            {
-                                this.state.profile ?
-                                    <GitProfile profile={this.state.profile} />
-
-
-                                    : null
-
-                            }
-                        </div>
-                    </div>
-                </div>
 
 
 
