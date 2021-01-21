@@ -1,0 +1,89 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+span{
+  display:inline-block;
+  background-color: antiquewhite;
+  padding:10px;
+  margin:5px;  
+}
+.list-wrapper{
+  Border: 1px solid #ccc;
+  margin:auto;
+  width:500px;
+}
+.search-row{
+  max-width: 100px;
+  background-color: aliceblue;
+  padding: 3px;
+  margin:auto;
+  margin-top:8px;
+}
+.logo-bk{
+  margin-top: 10px;
+  height: 70%;
+  width: 50%;
+}
+.Grid-Container{
+  margin-top: 40px;
+  width:1000px;
+  text-align: center;
+}
+.para-ayurvedic{
+  background-color: #00642d;
+  color: white;
+  margin-top: 30px;
+  margin-left: 20px;
+  margin-right:20px;
+}
+.ayurvedic{
+  margin-top: 60px;
+  font-size: 350%;
+}
+.mission-content{
+  margin-top: 30px;
+  text-align: justify;
+  margin-left: 150px;
+  margin-right: 150px ;
+  font-size: 17px; ;
+}
+.mission-content2{
+  margin:auto;
+  height: 110%;
+  width: 110%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #7e7f81;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color:green;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
